@@ -1,0 +1,28 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h1>INVOICE DETAILS</h1>
+<h4>Invoice Number: {{ model.invoice_number }}</h4>
+<h4>Agent Name: {{ model.agent_name }}</h4>
+<h4>Total Amount: Rs. {{ total }}</h4>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Total Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in items %}
+      <tr>
+        <td>{{ i.item_description }}</td>
+        <td>{{ i.item_quantity }}</td>
+        <td>{{ i.item_rate }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
+
+{% endblock %}

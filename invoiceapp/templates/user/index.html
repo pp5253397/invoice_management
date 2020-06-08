@@ -1,0 +1,41 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+        <!-- form -->
+        <div class="center">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Upload PDF</label>
+            <input type="file" id="file" name="pdf-file" class="form-control-file" accept="application/pdf" onchange="Filevalidation()"  ><br>
+            <button type="submit" id="dbtn" class="btn btn-success">Upload</button>
+        </form>
+       <!-- form End -->
+
+</div>
+    </body>
+    <script> 
+        Filevalidation = () => { 
+            const fi = document.getElementById('file'); 
+            const button = document.getElementById('dbtn')
+            // Check if any file is selected. 
+            if (fi.files.length > 0) { 
+                for (const i = 0; i <= fi.files.length - 1; i++) { 
+      
+                    const fsize = fi.files.item(i).size; 
+                    const file = Math.round((fsize / 1024)); 
+                    // The size of the file. 
+                    if (file > 2048) { 
+                        alert( 
+                          "File too Big, please select a file less than 2mb"); 
+                          
+                          button.disabled = true;
+                    }else {
+                        button.disabled = false;
+                    }
+                    
+                } 
+            } 
+        } 
+    </script> 
+</html>
+{% endblock %}

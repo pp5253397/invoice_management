@@ -1,0 +1,56 @@
+
+<html>
+<head>
+  <meta http-equiv="X-Frame-Options" content="ALLOW-FROM http://127.0.0.1:8002/form">
+    <title>Invoice | Index</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .center {
+          margin: auto;
+          width: 60%;
+         
+          padding: 100px;
+        }
+        </style>
+        <style>
+          /* Chrome, Safari, Edge, Opera */
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          
+          /* Firefox */
+          input[type=number] {
+            -moz-appearance: textfield;
+          }
+          </style>
+</head>
+<body>
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'index' %}">Invoice Generate</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'invoice-data' %}">Invoices</a></li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hi {{ agent_name }}</a></li>
+            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- End Navbar -->
+    {% block content %}
+    {% endblock %}

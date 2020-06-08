@@ -1,0 +1,71 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<httpProtocol>
+    <customHeaders>
+      <add  />
+    </customHeaders>
+</httpProtocol>
+<table style="width: 100%; height: 100%;">
+    <tr style="width: 50%; height: 100%;"><td style="width: 50%; height: 100%;">
+<object data="{{ pdf.url }}" type="application/pdf" width="100%" height="100%">
+<iframe src="{{ pdf.url }}" width="50%" height="100%">
+
+</iframe>
+</object></td>
+<td>
+    <center><h2>Invoice Form</h2></center>
+    <form  style="padding: 5%;" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="invoice">Invoice Number:</label>
+          <input type="number" class="form-control" id="id_invoice_number" name="invoice_number" style="width: 50%; " value="{{ model.invoice_number }}">
+        </div>
+        <div class="form-group">
+          <label for="vname">Vendor Name:</label>
+          <input type="text" class="form-control" name="vender_name" id="id_vender_name" value="{{ model.vender_name }}">
+        </div>
+        <div class="form-group">
+            <label for="vname">Invoice Date:</label>
+            <input type="date" class="form-control" id="id_invoice_date" name="invoice_date" value="{{ model.invoice_date }}">
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form method="POST" action="{% url 'invoice-form' %}">
+                        {% csrf_token %}
+                    <td><input type="text" name="item_description" id="id_item_description" style="width: 60%;"></td>
+                    <td><input type="number" name="item_quantity" id="id_item_quantity" style="width: 30%;"></td>
+                    <td><input type="number" name="item_rate" id="id_item_rate" style="width: 40%;"></td>
+                    <td style="width: 10%;"><button type="submit" style="width: -1%;" class="btn btn-success"><center>+</center></button></td>
+                </form>
+                  </tr>
+                  {% for i in item %}
+              <tr>
+                <td>{{ i.item_description }}</td>
+                <td>{{ i.item_quantity }}</td>
+                <td>{{ i.item_rate }}</td>
+                <td><a href="/delete/{{ i.id }}" style="width: -1%;" class="btn btn-danger"><center>-</center></a></td>
+               
+              </tr>
+              {% endfor %}
+              </tbody></table>
+
+        <a href="{% url 'invoice-email' %}" type="submit" class="btn btn-primary">Submit</a>
+      </form>
+</td>
+
+</tr>
+</table>
+
+</body>
+
+</html>
+{% endblock %}

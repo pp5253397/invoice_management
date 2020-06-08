@@ -1,0 +1,33 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Invoice No.</th>
+        <th>Vendor Name</th>
+        <th>Invoice Date</th>
+        <th>PDF</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in model %}
+      <tr>
+        <td><a href="/detailed-invoice/{{ i.id }}"> {{  i.invoice_number }}</a></td>
+        <td>{{ i.vender_name }}</td>
+        <td>{{ i.invoice_date }}</td>
+        <td>
+            <object data="{{ i.pdf.url }}" type="application/pdf" >
+                <iframe src="{{ i.pdf.url }}"  >
+                
+                </iframe>
+                </object>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</body>
+</html>
+{% endblock %}
