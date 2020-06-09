@@ -108,14 +108,14 @@ def invoice_email(request):
         time = model.upload_time
         s = smtplib.SMTP('smtp.gmail.com', 587) 
         s.starttls() 
-        s.login("pp5253397@gmail.com", "12101966P@rth")
+        s.login("YOUR EMAIL", "YOUR PASSWORD")
         message = f'''
         A New Invoice has been created\n
         Invoice Id: { invoice }\n
         Agent Name: { agent_name }\n
         Time: { time }
         '''
-        s.sendmail("pp5253397@gmail.com", "pp5253397@gmail.com", message) 
+        s.sendmail("YOUR EMAIL", "RECEIVER EMAIL", message) 
         s.quit() 
         return redirect('index')
     else:
