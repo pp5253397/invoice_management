@@ -20,6 +20,7 @@ def index(request):
                 model.pdf = request.FILES['pdf-file']
                 model.agent_name = agent_name
                 model.save()
+                return redirect('invoice-form')
               
         
         return render(request,'user/index.html',{'agent_name':agent_name})
@@ -45,12 +46,13 @@ def detailed_invoice(request,id):
 def invoiceformview(request):
     if request.session.has_key('agent-name'):
         agent_name = request.session['agent-name']
-        item_model_all = ItemDetails.objects.all()
+        item_model_all = None
         item_model = ItemDetails()
         model = InvoiceDetails.objects.latest('id')
         formset = ItemDetailsForm(request.POST, instance=model)
         pdf = model.pdf
         if request.method == "POST":
+            item_model_all = ItemDetails.objects.filter(agent_name = request.session['agent-name']).filter(invoice_number = request.POST['invoice_number'])
             item_model.agent_name = request.session['agent-name']
             item_model.invoice_number = request.POST['invoice_number']
             item_model.item_description = request.POST['item_description']
@@ -106,16 +108,16 @@ def invoice_email(request):
         time = model.upload_time
         s = smtplib.SMTP('smtp.gmail.com', 587) 
         s.starttls() 
-        s.login("Your Email", "Your Password")
+        s.login("pp5253397@gmail.com", "12101966P@rth")
         message = f'''
         A New Invoice has been created\n
         Invoice Id: { invoice }\n
         Agent Name: { agent_name }\n
         Time: { time }
         '''
-        s.sendmail("Your Email", "Receiver's Email", message) 
+        s.sendmail("pp5253397@gmail.com", "pp5253397@gmail.com", message) 
         s.quit() 
-        return HttpResponse('Done')
+        return redirect('index')
     else:
         return redirect('login')
 
